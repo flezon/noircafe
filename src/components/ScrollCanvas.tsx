@@ -85,28 +85,31 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
     const imgRatio = img.width / img.height;
     const canvasRatio = canvasWidth / canvasHeight;
 
-    let drawWidth, drawHeight, offsetX, offsetY;
+    let scale;
 
-    // Cover logic
-    if (canvasRatio < imgRatio) {
-      drawHeight = canvasHeight;
-      drawWidth = canvasHeight * imgRatio;
-      offsetX = (canvasWidth - drawWidth);
-      offsetY = 0;
+    if (isMobile) {
+      // Contain logic for mobile: Shows the ENTIRE image without cropping or zooming. 
+      // This matches your source image exactly.
+      scale = Math.min(canvasWidth / img.width, canvasHeight / img.height);
     } else {
-      drawWidth = canvasWidth;
-      drawHeight = canvasWidth / imgRatio;
-      offsetX = 0;
-      offsetY = (canvasHeight - drawHeight);
+      // Cover logic for desktop: Fills the screen for cinematic effect.
+      scale = Math.max(canvasWidth / img.width, canvasHeight / img.height);
     }
+
+    const drawWidth = img.width * scale;
+    const drawHeight = img.height * scale;
+    
+    // Perfect centering
+    const offsetX = (canvasWidth - drawWidth) / 2;
+    const offsetY = (canvasHeight - drawHeight) / 2;
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
-
-    // Solid background to keep total consistency
+    
+    // Fill background with Noir Black to match the rest of the site
     ctx.fillStyle = "#08060A";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
+    
     ctx.drawImage(img, Math.round(offsetX), Math.round(offsetY), Math.round(drawWidth), Math.round(drawHeight));
   };
 
@@ -119,15 +122,12 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
-      // Handle High DPI displays
+      // Physical pixels for max sharpness
       const dpr = window.devicePixelRatio || 1;
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-
-      const ctx = canvas.getContext("2d");
-      if (ctx) ctx.scale(dpr, dpr);
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
 
       render(frameIndex.get());
     };
