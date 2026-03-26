@@ -70,10 +70,10 @@ export default function ReservasPage() {
           className="text-center mb-16"
         >
           <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-4 tracking-tight">
-            Reserva tu <span className="text-gold-primary italic">Experiencia</span>
+            Guárdanos un <span className="text-gold-primary italic">sitio</span>
           </h1>
           <p className="text-white/50 text-lg max-w-xl mx-auto font-light">
-            Seleccione su fecha y hora preferidas. Le recomendamos reservar con antelación para asegurar su mesa en la barra.
+            Nuestra barra es pequeña y el café vuela. Elige cuándo vienes y nosotros nos encargamos de que tu taza esté lista.
           </p>
         </motion.div>
 
@@ -175,7 +175,7 @@ export default function ReservasPage() {
                     Confirmar Reserva
                   </button>
                   <p className="text-[10px] text-center text-white/20 mt-4 leading-relaxed">
-                    Al confirmar, usted acepta nuestra política de puntualidad de 15 minutos.
+                    15 minutos de cortesía. Después de eso, el café se enfría y tu mesa pasa al siguiente. No es nada personal.
                   </p>
                 </div>
               </div>

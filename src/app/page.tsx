@@ -22,10 +22,10 @@ export default function Home() {
               NOIR CAFÉ
             </h1>
             <p className="text-xl md:text-3xl font-playfair font-bold text-gold-secondary mb-8 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">
-              Oscuridad, perfeccionada.
+              El café que estabas buscando, pero más oscuro.
             </p>
             <p className="max-w-md mx-auto text-white/70 text-sm font-medium tracking-[0.2em] uppercase bg-black/40 py-2 rounded-full border border-white/5">
-              Café de especialidad, creado para quienes exigen lo extraordinario.
+              Sin adornos. Sin pretensiones. Solo grano real para gente que se toma esto en serio.
             </p>
           </div>
         </section>
@@ -36,15 +36,15 @@ export default function Home() {
         {/* 2. CRAFT REVEAL (15-40%) */}
         <NarrativeSection align="left">
           <h2 className="text-5xl md:text-7xl font-playfair font-bold text-white mb-6 leading-tight">
-            Cultivado con obsesión, <br />
-            <span className="text-gold-primary">del origen a la taza.</span>
+            Control absoluto. <br />
+            <span className="text-gold-primary">Del origen a tu mano.</span>
           </h2>
           <div className="space-y-4 text-white/55 text-lg max-w-lg">
             <p>
-              Granos de origen único, recolectados en las alturas. Tostados en lotes pequeños para lograr profundidad, dulzura y complejidad.
+              Traemos granos de fincas que conocemos por nombre propio. Los tostamos en tandas pequeñas —muy pequeñas— para no perder ni un matiz.
             </p>
             <p className="font-medium text-white/80">
-              Cada gramo medido. Cada variable controlada. Cada taza, una declaración.
+              Pesamos cada gramo y controlamos cada segundo. Porque la suerte no hace buen café.
             </p>
           </div>
         </NarrativeSection>
@@ -52,15 +52,15 @@ export default function Home() {
         {/* 3. ROAST & PROCESS (40-65%) */}
         <NarrativeSection align="right">
           <h2 className="text-5xl md:text-7xl font-playfair font-bold text-white mb-6 leading-tight">
-            El tueste es donde <br />
-            <span className="text-gold-secondary">vive la magia.</span>
+            Donde el grano <br />
+            <span className="text-gold-secondary">encuentra su voz.</span>
           </h2>
           <div className="space-y-4 text-white/55 text-lg max-w-lg ml-auto">
             <p>
-              El tueste de precisión libera la complejidad: caramelo, cítricos, chocolate negro y más.
+              El tueste no es magia, es química pura. Buscamos ese equilibrio difícil entre el humo y el caramelo. 
             </p>
             <p>
-              La disciplina de lotes pequeños significa que cada bolsa es rastreable, fresca e intencional.
+              Trazabilidad real: si quieres saber quién lo recogió y cuándo se tostó, solo tienes que mirar la bolsa.
             </p>
           </div>
         </NarrativeSection>
@@ -68,12 +68,11 @@ export default function Home() {
         {/* 4. EXTRACTION & SENSORY (65-85%) */}
         <NarrativeSection align="left">
           <h2 className="text-5xl md:text-7xl font-playfair font-bold text-white mb-6 leading-tight">
-            Nueve bares de presión. <br />
-            <span className="text-gold-primary">Infinitas capas de sabor.</span>
+            La presión justa. <br />
+            <span className="text-gold-primary">9 bares. Sin prisas.</span>
           </h2>
           <p className="text-white/55 text-lg max-w-lg">
-            La extracción de precisión preserva cada nota: dulce, amarga, compleja y viva.
-            El control de temperatura desbloquea lo que los métodos menores dejan atrás.
+            Nueve bares separan un espresso mediocre de uno memorable. Usamos tecnología para que el agua extraiga exactamente lo que el grano quiere contar. Sin más.
           </p>
         </NarrativeSection>
 
@@ -81,7 +80,7 @@ export default function Home() {
         <section className="h-[150vh] flex items-center justify-center">
           <div className="text-center sticky top-[40%] translate-y-[-50%]">
             <h2 className="text-6xl md:text-8xl font-playfair font-bold text-white mb-8">
-              Pruebe la obsesión.
+              Pruébalo ahora.
             </h2>
             <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
               <a href="/reservas" className="px-10 py-4 bg-gradient-to-r from-gold-primary to-gold-secondary rounded-full text-noir-black font-bold text-lg hover:scale-105 transition-transform duration-300">

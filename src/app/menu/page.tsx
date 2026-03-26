@@ -7,24 +7,24 @@ const MENU_CATEGORIES = [
   {
     title: "Origen Único",
     items: [
-      { name: "Etiopía Yirgacheffe", price: "5.50", desc: "Notas florales de jazmín y limón" },
-      { name: "Colombia Huila", price: "4.80", desc: "Cuerpo medio con matices de caramelo" },
-      { name: "Panama Gesha", price: "12.00", desc: "Rareza excepcional con notas de bergamota" },
+      { name: "Etiopía Yirgacheffe", price: "5.50", desc: "Flores y limón. Así de simple, así de radical." },
+      { name: "Colombia Huila", price: "4.80", desc: "El clásico que nunca falla. Dulce como el caramelo de verdad." },
+      { name: "Panama Gesha", price: "12.00", desc: "Si sabes lo que es, no necesitas que te lo explique. Si no, prepárate." },
     ]
   },
   {
     title: "Maison Noir (Espresso)",
     items: [
-      { name: "Noir Americano", price: "3.50", desc: "Doble shot con agua purificada" },
-      { name: "Cortado Noir", price: "4.00", desc: "Balance perfecto entre leche y café" },
-      { name: "Flat White", price: "4.50", desc: "Textura sedosa para el purista" },
+      { name: "Noir Americano", price: "3.50", desc: "Doble shot con agua purificada. Directo e intenso." },
+      { name: "Cortado Noir", price: "4.00", desc: "Balance real entre leche y café. Sin secretos." },
+      { name: "Flat White", price: "4.50", desc: "Textura sedosa para el purista. Sin burbujas de más." },
     ]
   },
   {
     title: "Artesanías Frías",
     items: [
-      { name: "Cold Brew 24h", price: "5.00", desc: "Infusión en frío lenta para dulzura máxima" },
-      { name: "Espresso Tonic", price: "6.00", desc: "Refrescante con notas cítricas" },
+      { name: "Cold Brew 24h", price: "5.00", desc: "Lo dejamos reposar un día entero para que la amargura se transforme en chocolate." },
+      { name: "Espresso Tonic", price: "6.00", desc: "Refrescante, cítrico y con la pegada del espresso." },
     ]
   }
 ];
