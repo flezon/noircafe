@@ -149,7 +149,7 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
               />
             </div>
             <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-white/30 font-medium font-inter">
-              Perfecting the brew... {Math.round((loadedCount / currentFrameCount) * 100)}%
+              Perfeccionando la mezcla... {Math.round((loadedCount / currentFrameCount) * 100)}%
             </p>
           </div>
         )}
