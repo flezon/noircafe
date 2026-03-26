@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useScroll, useTransform, motion, useMotionValueEvent } from "framer-motion";
 
 interface ScrollCanvasProps {
@@ -29,7 +29,7 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
 
   // Map scroll progress (0-1) to frame index
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, currentFrameCount - 1]);
-
+  
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
 
@@ -42,32 +42,28 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
 
       for (let i = 1; i <= currentFrameCount; i++) {
         const img = new Image();
-        // Zero padding for frame numbers (e.g., 001, 010, 100)
         const frameNumber = i.toString().padStart(3, "0");
         img.src = `${currentBaseUrl}/ezgif-frame-${frameNumber}.jpg`;
-
+        
         img.onload = () => {
           count++;
           setLoadedCount(count);
           if (count === currentFrameCount) {
-            // Sort images to ensure they are in order if loaded asynchronously
-            // Since we set them directly by index, we just need to confirm completion.
             setImages(loadedImages);
           }
         };
         img.onerror = () => {
-          console.error(`Failed to load frame: ${img.src}`);
-          count++; // Still count it to progress the loader
+          count++;
           setLoadedCount(count);
         }
-        loadedImages[i - 1] = img; // store at index 0..239
+        loadedImages[i - 1] = img;
       }
     };
 
     preloadImages();
   }, [currentFrameCount, currentBaseUrl]);
 
-  const render = (index: number) => {
+  const render = useCallback((index: number) => {
     const canvas = canvasRef.current;
     if (!canvas || images.length === 0) return;
 
@@ -80,10 +76,6 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
     // Clear and draw
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
-
-    // Fit image to canvas (cover or contain)
-    const imgRatio = img.width / img.height;
-    const canvasRatio = canvasWidth / canvasHeight;
 
     let scale;
 
@@ -111,7 +103,7 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     
     ctx.drawImage(img, Math.round(offsetX), Math.round(offsetY), Math.round(drawWidth), Math.round(drawHeight));
-  };
+  }, [images, isMobile]);
 
   useMotionValueEvent(frameIndex, "change", (latest) => {
     render(latest);
@@ -136,7 +128,7 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [images]);
+  }, [images, frameIndex, render]);
 
   return (
     <div ref={containerRef} className="relative h-[500vh]">
