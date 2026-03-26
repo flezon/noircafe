@@ -44,9 +44,8 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
       const loadedImages: HTMLImageElement[] = new Array(currentFrameCount);
       let count = 0;
 
-      // 1. Prioritize Frame 1 for LCP
       const firstImg = new Image();
-      (firstImg as any).fetchPriority = "high";
+      firstImg.setAttribute("fetchpriority", "high");
       const firstFrameNumber = "001";
       firstImg.src = `${currentBaseUrl}/ezgif-frame-${firstFrameNumber}.jpg`;
       
