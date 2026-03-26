@@ -32,35 +32,61 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
   
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [loadedCount, setLoadedCount] = useState(0);
+  const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
     const preloadImages = async () => {
       setLoadedCount(0);
       setImages([]);
-      const loadedImages: HTMLImageElement[] = [];
+      setFirstFrameLoaded(false);
+
+      const loadedImages: HTMLImageElement[] = new Array(currentFrameCount);
       let count = 0;
 
-      for (let i = 1; i <= currentFrameCount; i++) {
+      // 1. Prioritize Frame 1 for LCP
+      const firstImg = new Image();
+      // @ts-ignore - fetchPriority is supported in modern browsers for SEO
+      firstImg.fetchPriority = "high";
+      const firstFrameNumber = "001";
+      firstImg.src = `${currentBaseUrl}/ezgif-frame-${firstFrameNumber}.jpg`;
+      
+      firstImg.onload = () => {
+        if (!isMounted) return;
+        loadedImages[0] = firstImg;
+        setImages([...loadedImages]); 
+        setFirstFrameLoaded(true);
+        count++;
+        setLoadedCount(count);
+      };
+
+      // 2. Load the rest in small batches or the browser handles queuing
+      for (let i = 2; i <= currentFrameCount; i++) {
         const img = new Image();
         const frameNumber = i.toString().padStart(3, "0");
         img.src = `${currentBaseUrl}/ezgif-frame-${frameNumber}.jpg`;
         
         img.onload = () => {
+          if (!isMounted) return;
           count++;
           setLoadedCount(count);
-          if (count === currentFrameCount) {
-            setImages(loadedImages);
+          loadedImages[i - 1] = img;
+          
+          // Periodically update the images array to allow scrolling while loading
+          if (count % 10 === 0 || count === currentFrameCount) {
+             setImages([...loadedImages]);
           }
         };
         img.onerror = () => {
+          if (!isMounted) return;
           count++;
           setLoadedCount(count);
-        }
-        loadedImages[i - 1] = img;
+        };
       }
     };
 
     preloadImages();
+    return () => { isMounted = false; };
   }, [currentFrameCount, currentBaseUrl]);
 
   const render = useCallback((index: number) => {
@@ -135,12 +161,14 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-noir-black">
         <canvas
           ref={canvasRef}
-          className="max-w-full max-h-full"
+          className="w-full h-full object-contain"
+          role="img"
+          aria-label="Animación del ritual cinematográfico de Noir Café: granos de café, tueste y extracción líquida."
         />
 
-        {/* Loading overlay */}
-        {loadedCount < currentFrameCount && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-noir-black z-10">
+        {/* Loading overlay - only blocks until first frame is ready */}
+        {!firstFrameLoaded && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-noir-black z-20">
             <div className="w-48 h-[2px] bg-white/10 relative overflow-hidden">
               <motion.div
                 className="absolute inset-y-0 left-0 bg-gold-primary"
