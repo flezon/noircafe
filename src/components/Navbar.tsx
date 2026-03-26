@@ -25,7 +25,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = ["Story", "Craft", "Menu", "Roasts", "Visit"];
 
   return (
     <motion.nav
