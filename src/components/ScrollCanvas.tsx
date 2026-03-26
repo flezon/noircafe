@@ -46,8 +46,7 @@ export default function ScrollCanvas({ baseUrl }: ScrollCanvasProps) {
 
       // 1. Prioritize Frame 1 for LCP
       const firstImg = new Image();
-      // @ts-ignore - fetchPriority is supported in modern browsers for SEO
-      firstImg.fetchPriority = "high";
+      (firstImg as any).fetchPriority = "high";
       const firstFrameNumber = "001";
       firstImg.src = `${currentBaseUrl}/ezgif-frame-${firstFrameNumber}.jpg`;
       
